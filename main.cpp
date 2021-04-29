@@ -17,22 +17,23 @@ using namespace std;
 // 関数プロトタイプ宣言
 void cipher(char* dst);
 
-int main()
+int main(int argc, char* argv[], char* envp[])
 {
     //インプットファイル名のstring変数
-    string fileName;
+    string fileName = argv[1];
 
-    //ファイル名からバイナリファイルで読み込む
-    cout << "暗号化するファイル名を入力してください\n";
+    ////ファイル名からバイナリファイルで読み込む
+    //cout << "暗号化するファイル名を入力してください\n";
 
     //キーボード入力からファイル名を取得する
     // ※getlineとは？
     // ストリームから改行文字が現れるまで（1行すべて）
     // あるいは仮引数delimで指定された文字までの文字列を入力する。
-    getline(cin, fileName);
+    //getline(cin, fileName);  
 
     // ファイルを開く
     ifstream ifs(fileName, std::ios::binary);
+
 
     //アウトプットファイル名のstring変数
     string outFileName;

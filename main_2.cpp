@@ -1,5 +1,6 @@
 //https://qiita.com/p1ro3/items/6bb1c78a6c27109f6b93
 //https://qiita.com/asksaito/items/1793b8d8b3069b0b8d68
+
 // CBCモードを用いたブロック暗号化
 // CBCモードとは
 // CBCモードとはCiper Block Chainingモードの略で1つ前の暗号ブロックと
@@ -50,22 +51,25 @@ void decode(char* dst);
 
 int main()
 {
-
-    string fileName;    //ファイル名
-
+    //読み込みファイル名
+    string fileName;
 
     //ファイル名からバイナリファイルで読み込む
-    std::cout << "復号化するファイル名を入力してください\n";
+    cout << "復号化するファイル名を入力してください\n";
+
     //キーボード入力からファイル名を取得する
     getline(cin, fileName);
-    std::ifstream ifs(fileName, std::ios::binary);
+    ifstream ifs(fileName, ios::binary);
 
-    string outFileName; //ファイル名
+    //出力ファイル名
+    string outFileName;
+
     //ofstreamを読み取りモードで開き、末尾に移動
-    std::cout << "出力するファイル名を入力してください\n";
+    cout << "出力するファイル名を入力してください\n";
+
     //キーボード入力からファイル名を取得する
     getline(cin, outFileName);
-    std::ofstream ofs(outFileName, std::ios::app | std::ios::binary);
+    ofstream ofs(outFileName, ios::app | ios::binary);
 
     //読み込みデータ
     char data[Block];
@@ -83,36 +87,48 @@ int main()
     //復号ブロック
     char decodeBlock[Block];
 
-    //データ読込
+    //データの読込み
     ifs.read(data, Block);
+
     //1つ前の暗号ブロックに暗号化されているブロックを格納
     memcpy(cipherBlockPre, data, Block);
+
     //復号化
     decode(data);
     //ブロック長ごとに処理
+
     for (int i = 0; i < Block; i++)
     {
         decodeBlock[i] = data[i] ^ initialData[i];
     }
+
     //暗号化したブロックを出力
     ofs.write(decodeBlock, Block);
+
     do {
+
         //データ読込
         ifs.read(data, Block);
+
         //データがなかった場合終了する。
         memcpy(dataTemp, data, Block);
+
         //復号化
         decode(data);
+
         if (ifs.eof()) break;
         //ブロック長ごとに処理
         for (int i = 0; i < Block; i++)
         {
             decodeBlock[i] = data[i] ^ cipherBlockPre[i];
         }
+
         //暗号化したブロックを出力
         ofs.write(decodeBlock, Block);
+
         //1つ前の暗号ブロックに暗号化されているブロックを格納
         memcpy(cipherBlockPre, dataTemp, Block);
+
     } while (true);
 
 }
@@ -122,6 +138,7 @@ void decode(char* dst)
 {
     //暗号鍵
     char cipherBlockTemp[Block];
+
     memset(cipherBlockTemp, 'S', Block);
 
     //ブロック長ごとに処理
