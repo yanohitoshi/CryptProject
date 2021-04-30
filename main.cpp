@@ -21,34 +21,33 @@ void cipher(char* dst);
 int main(int argc, char* argv[])
 {
 
-    //if (argc <= 1)
-    //{
-    //    printf("コマンドライン引数が空です。\n");
-    //    printf("Enterキーで終了");
-    //    getchar();
-    //    return 0;
-    //}
+    if (argc <= 1)
+    {
+        cout << "コマンドライン引数が空です。" << endl;
+        cout << "Enterキーで終了" << endl;
+        getchar();
+        return 0;
+    }
+    else
+    {
+        cout << argc << endl;
+    }
 
-    //if (argv[1]!= nullptr)
-    //{
-    //    printf("%s\n", argv[1]);
-    //}
+    string fileName = argv[1];
 
-    //string fileName = argv[1];
+    cout << fileName << endl;
 
-    //cout << fileName << endl;
+    ////インプットファイル名のstring変数
+    //string fileName;
 
-    //インプットファイル名のstring変数
-    string fileName;
+    ////ファイル名からバイナリファイルで読み込む
+    //cout << "暗号化するファイル名を入力してください\n";
 
-    //ファイル名からバイナリファイルで読み込む
-    cout << "暗号化するファイル名を入力してください\n";
-
-    //キーボード入力からファイル名を取得する
-    // ※getlineとは？
-    // ストリームから改行文字が現れるまで（1行すべて）
-    // あるいは仮引数delimで指定された文字までの文字列を入力する。
-    getline(cin, fileName);  
+    ////キーボード入力からファイル名を取得する
+    //// ※getlineとは？
+    //// ストリームから改行文字が現れるまで（1行すべて）
+    //// あるいは仮引数delimで指定された文字までの文字列を入力する。
+    //getline(cin, fileName);  
 
     //cout << fileName << endl;
 
@@ -57,9 +56,7 @@ int main(int argc, char* argv[])
 
     //if (argv[3] != nullptr)
     //{
-    //    //printf("コマンドライン引数が空です。\n");
     //    printf("%s\n", argv[3]);
-    //    //getchar();
     //}
     //else
     //{
@@ -67,22 +64,24 @@ int main(int argc, char* argv[])
     //    return 0;
     //}
 
-    //const char* cstr2 = argv[3];
+    const char* cstr2 = argv[3];
 
-    //string outFileName = cstr2;
+    string outFileName = cstr2;
+
+    cout << outFileName << endl;
 
 
-    //アウトプットファイル名のstring変数
-    string outFileName;
+    ////アウトプットファイル名のstring変数
+    //string outFileName;
 
-    //ofstreamを読み取りモードで開き、末尾に移動
-    cout << "出力するファイル名を入力してください\n";
+    ////ofstreamを読み取りモードで開き、末尾に移動
+    //cout << "出力するファイル名を入力してください\n";
 
-    ////キーボード入力からファイル名を取得する
-    getline(cin, outFileName);
+    //////キーボード入力からファイル名を取得する
+    //getline(cin, outFileName);
 
     // 何も書かれていないファイルを出力
-    ofstream ofs(outFileName, ios::out | ios::binary);
+    ofstream ofs(outFileName, ios::app | ios::binary);
 
     //読み込みデータ
     // ifsをコピーする箱
@@ -137,6 +136,24 @@ int main(int argc, char* argv[])
         memcpy(cipherBlockPre, cipherBlock, Block);
 
     } while (!ifs.eof());
+
+    ////データ読込
+    //ifs.read(data, Block);
+
+    ////ブロック長ごとに処理
+    //for (int i = 0; i < Block; i++)
+    //{
+    //    cipherBlock[i] = data[i] ^ cipherBlockPre[i];
+    //}
+
+    ////暗号化
+    //cipher(cipherBlock);
+
+    ////暗号化したブロックを出力
+    //ofs.write(cipherBlock, Block);
+
+    ////1つ前の暗号ブロックに暗号化したブロックを格納
+    //memcpy(cipherBlockPre, cipherBlock, Block);
 
 
     return 0;
