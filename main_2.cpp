@@ -49,26 +49,62 @@ using namespace std;
 // 暗号を平文に復号する関数
 void decode(char* dst);
 
-int main()
+int main(int argc, char* argv[])
 {
-    //読み込みファイル名
-    string fileName;
 
-    //ファイル名からバイナリファイルで読み込む
-    cout << "復号化するファイル名を入力してください\n";
+    if (argc <= 1)
+    {
+        cout << "コマンドライン引数が空です。" << endl;
+        cout << "Enterキーで終了" << endl;
+        getchar();
+        return 0;
+    }
+    else
+    {
+        cout << argc << endl;
+    }
 
-    //キーボード入力からファイル名を取得する
-    getline(cin, fileName);
+
+    string fileName = argv[1];
+
+    cout << fileName << endl;
+
+    ////読み込みファイル名
+    //string fileName;
+
+    ////ファイル名からバイナリファイルで読み込む
+    //cout << "復号化するファイル名を入力してください\n";
+
+    ////キーボード入力からファイル名を取得する
+    //getline(cin, fileName);
+
     ifstream ifs(fileName, ios::binary);
 
-    //出力ファイル名
-    string outFileName;
 
-    //ofstreamを読み取りモードで開き、末尾に移動
-    cout << "出力するファイル名を入力してください\n";
+    if (!ifs)
+    {
+        cout << "空です。" << endl;
+        cout << "Enterキーで終了" << endl;
+        getchar();
+        return 0;
+    }
 
-    //キーボード入力からファイル名を取得する
-    getline(cin, outFileName);
+    ////出力ファイル名
+    //string outFileName;
+
+    ////ofstreamを読み取りモードで開き、末尾に移動
+    //cout << "出力するファイル名を入力してください\n";
+
+    ////キーボード入力からファイル名を取得する
+    //getline(cin, outFileName);
+
+    const char* cstr2 = argv[3];
+
+    string outFileName = cstr2;
+
+    cout << outFileName << endl;
+
+
     ofstream ofs(outFileName, ios::app | ios::binary);
 
     //読み込みデータ

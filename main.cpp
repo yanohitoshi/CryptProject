@@ -54,6 +54,14 @@ int main(int argc, char* argv[])
     // ファイルを開く
     ifstream ifs(fileName, ios::binary);
 
+    if (!ifs)
+    {
+        cout << "空です。" << endl;
+        cout << "Enterキーで終了" << endl;
+        getchar();
+        return 0;
+    }
+
     //if (argv[3] != nullptr)
     //{
     //    printf("%s\n", argv[3]);
@@ -115,7 +123,12 @@ int main(int argc, char* argv[])
     //1つ前の暗号ブロックに暗号化したブロックを格納
     memcpy(cipherBlockPre, cipherBlock, Block);
 
+    int count = 0;
+
     do {
+
+        ++count;
+        cout << count << endl;
 
         //データ読込
         ifs.read(data, Block);
@@ -136,25 +149,6 @@ int main(int argc, char* argv[])
         memcpy(cipherBlockPre, cipherBlock, Block);
 
     } while (!ifs.eof());
-
-    ////データ読込
-    //ifs.read(data, Block);
-
-    ////ブロック長ごとに処理
-    //for (int i = 0; i < Block; i++)
-    //{
-    //    cipherBlock[i] = data[i] ^ cipherBlockPre[i];
-    //}
-
-    ////暗号化
-    //cipher(cipherBlock);
-
-    ////暗号化したブロックを出力
-    //ofs.write(cipherBlock, Block);
-
-    ////1つ前の暗号ブロックに暗号化したブロックを格納
-    //memcpy(cipherBlockPre, cipherBlock, Block);
-
 
     return 0;
 
